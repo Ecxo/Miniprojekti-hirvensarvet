@@ -14,21 +14,24 @@ import java.util.Scanner;
  */
 public class CommandLineUI implements UI {
     
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     
-    public CommandLineUI () {
+    public CommandLineUI (Scanner scanner) {
         
+        this.scanner = scanner;
     }
     
+    @Override
     public String[] getCommand(String prompt) {
         System.out.print(prompt+" ");
         String input = scanner.nextLine();
         return input.split(" ");
     }
     
+    @Override
     public Article addArticle(String key) {
         Article article = new Article(key);
-        System.out.println("Add: Enter [field type] [filed value] or done.");
+        System.out.println("Add: Enter [field type] [field value] or done.");
         while(true) {
             String[] input = getCommand(">");
             if (input[0].toLowerCase().equals("done")) {
@@ -38,7 +41,16 @@ public class CommandLineUI implements UI {
             String type = input[0];
             String value = "";
             for (int i = 1; i < input.length; i++ ) {
-                value = value.concat(input[i]+" ");
+                
+                String next;
+                
+                if(i == input.length - 1) {
+                    next = input[i];
+                } else {
+                    next = input[i] + " ";
+                }
+                
+                value = value.concat(next);
             }
             
             article.addField(type, value);
@@ -48,6 +60,7 @@ public class CommandLineUI implements UI {
         return article;
     }
     
+    @Override
     public void displayMenu() {
         System.out.println("Available commands:");
         System.out.println("add");

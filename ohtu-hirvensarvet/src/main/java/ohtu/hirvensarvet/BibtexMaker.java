@@ -7,6 +7,7 @@
 package ohtu.hirvensarvet;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -53,7 +54,7 @@ public class BibtexMaker {
     }
     
     public static void main(String [] args) {
-        UI ui = new CommandLineUI();
+        UI ui = new CommandLineUI(new Scanner(System.in));
         new BibtexMaker(ui).run();
     }
 }
