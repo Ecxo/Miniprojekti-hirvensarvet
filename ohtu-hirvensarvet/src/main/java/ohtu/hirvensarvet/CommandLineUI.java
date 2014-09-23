@@ -41,7 +41,7 @@ public class CommandLineUI implements UI {
      * Create a new article entry and query user for field types
      * and corresponding field values of the entry.
      * 
-     * @param key Name of the article
+     * @param key Id-string of the article
      * @return Article object
      */
     @Override
