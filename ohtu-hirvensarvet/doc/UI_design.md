@@ -25,6 +25,7 @@ For commands that require more than one argument there could be a sub-shell in w
 	Enter bibtex maker command:
 	>add HM06
 	Add: Enter [field type] [filed value] or done.
+	>type inproceedings
 	>author Hassinen, Marko and Mäyrä, Hannui
 	>title Learning programming by programming: a case study
 	.
@@ -42,10 +43,10 @@ Implementing a shell for simple one-word commands like these is easily done with
 The example .bib object used in this document:
 
 	@inproceedings{HM06,
-	author = {Hassinen, Marko and M\"{a}yr\"{a}, Hannu},
-	title = {Learning programming by programming: a case study},
-	booktitle = {Baltic Sea '06: Proceedings of the 6th Baltic Sea conference on Computing education research: Koli Calling 2006},
-	year = {2006},
-	pages = {117--119},
-	publisher = {ACM},
+		author = {Hassinen, Marko and M\"{a}yr\"{a}, Hannu},
+		title = {Learning programming by programming: a case study},
+		booktitle = {Baltic Sea '06: Proceedings of the 6th Baltic Sea conference on Computing education research: Koli Calling 2006},
+		year = {2006},
+		pages = {117--119},
+		publisher = {ACM},
 	}
