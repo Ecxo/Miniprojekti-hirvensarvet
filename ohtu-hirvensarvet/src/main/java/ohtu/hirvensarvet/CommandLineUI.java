@@ -21,6 +21,15 @@ public class CommandLineUI implements UI {
         this.scanner = scanner;
     }
     
+    /**
+     * Queries for user input, partitions it into
+     * space-separated subparts and returns those substrings
+     * as an array.
+     * 
+     * @param prompt String signifying that 
+     * the program is waiting for user input.
+     * @return array of space-separated substrings
+     */
     @Override
     public String[] getCommand(String prompt) {
         System.out.print(prompt+" ");
@@ -28,6 +37,13 @@ public class CommandLineUI implements UI {
         return input.split(" ");
     }
     
+    /**
+     * Create a new article entry and query user for field types
+     * and corresponding field values of the entry.
+     * 
+     * @param key Name of the article
+     * @return Article object
+     */
     @Override
     public Article addArticle(String key) {
         Article article = new Article(key);
@@ -60,6 +76,9 @@ public class CommandLineUI implements UI {
         return article;
     }
     
+    /**
+     * Display available commands.
+     */
     @Override
     public void displayMenu() {
         System.out.println("Available commands:");
