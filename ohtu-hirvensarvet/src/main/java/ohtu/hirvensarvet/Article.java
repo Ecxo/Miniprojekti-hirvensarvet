@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Juha Kivekas
  */
-public class Article {
+public class Article{
 	/** A unique identifier for the article for use in LaTex files and
 	  * equality checking.
 	  */
@@ -30,7 +30,7 @@ public class Article {
 		this.Fields = new ArrayList<BibliographyField>();
 		this.article_id = article_id;
 	}
-	
+
 	String getName(){
 		return this.article_id;
 	}

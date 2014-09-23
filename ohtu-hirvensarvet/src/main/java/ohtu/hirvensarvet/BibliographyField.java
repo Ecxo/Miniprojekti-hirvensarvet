@@ -7,6 +7,7 @@
 package ohtu.hirvensarvet;
 
 import java.util.ArrayList;
+import java.util.Collection;
 /** Field object for Article objects.
  *
  * @author Juha Kivekas
@@ -26,4 +27,20 @@ public class BibliographyField {
 	public String toString(){
 		return (this.name + ": " + this.value);
 	}
+        
+        public static int 
+                getMaxNameLength(Collection<BibliographyField> fields) {
+            
+            int maxlen = 0;
+            
+            for(BibliographyField field : fields) {
+                int currlen = field.name.length();
+                
+                if(currlen > maxlen) {
+                    maxlen = currlen;
+                }
+            }
+            
+            return maxlen;
+        }
 }
