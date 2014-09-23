@@ -15,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author petri
  */
-public class MainTest {
+public class BibtexMakerTest {
     
-    public MainTest() {
+    public BibtexMakerTest() {
     }
     
     @BeforeClass

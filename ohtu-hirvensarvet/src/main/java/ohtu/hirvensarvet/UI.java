@@ -10,6 +10,8 @@ package ohtu.hirvensarvet;
  *
  * @author lasse
  */
-public class Main {
-    
+public interface UI {
+    void displayMenu();
+    String[] getCommand(String prompt);
+    Article addArticle(String key);
 }
