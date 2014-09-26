@@ -22,12 +22,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>groovy-eclipse-compiler</artifactId>
-                <groupId>org.codehaus.groovy</groupId>
-                <version>2.6.0-01</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
                 <groupId>org.easyb</groupId>
                 <artifactId>maven-easyb-plugin</artifactId>
                 <version>1.4</version>
