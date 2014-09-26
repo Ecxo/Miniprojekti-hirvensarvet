@@ -18,6 +18,12 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+	<groupId>org.easyb</groupId>
+	<artifactId>maven-easyb-plugin</artifactId>
+	<version>1.4</version>
+        <scope>test</scope>
+</dependency>
 
     </dependencies>
     <properties>
