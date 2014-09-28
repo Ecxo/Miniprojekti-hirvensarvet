@@ -13,10 +13,9 @@ import java.util.Scanner;
  * @author lasse
  */
 public class CommandLineUI implements UI {
+    private CommandReader scanner;
     
-    private Scanner scanner;
-    
-    public CommandLineUI (Scanner scanner) {
+    public CommandLineUI (CommandReader scanner) {
         
         this.scanner = scanner;
     }

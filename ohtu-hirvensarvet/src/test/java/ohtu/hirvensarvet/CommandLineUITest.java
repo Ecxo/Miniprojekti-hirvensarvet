@@ -24,7 +24,7 @@ public class CommandLineUITest {
     }
     
     private CommandLineUI makeCmdLineUI(String message) {
-        return new CommandLineUI(new Scanner(message));
+        return new CommandLineUI(new CommandReader(new Scanner(message)));
     }
     
     @Before
