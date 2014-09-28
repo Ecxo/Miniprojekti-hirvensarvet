@@ -28,3 +28,20 @@ scenario "creating article reference", {
 
     
 }
+
+scenario "creating article with incorrect field", {
+
+    given "user creates article"
+    when "incorrect fields are given"
+    then "warning should be given"
+
+}
+
+scenario "creating article reference with field promts", {
+
+    given "user creates article"
+    when "program should ask for mandatory fields"
+    then "article is created"
+
+    
+}
