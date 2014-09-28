@@ -31,8 +31,7 @@ public class CommandReader {
 
     /**
      * Returns a command set in setNextLine or reads scanner.
-     *
-     * @param command command found in que or read from scanner if que empty
+     * @return the returned line from que or scanner.
      */
     public String nextLine() {
         if (nextLine.isEmpty()) {
