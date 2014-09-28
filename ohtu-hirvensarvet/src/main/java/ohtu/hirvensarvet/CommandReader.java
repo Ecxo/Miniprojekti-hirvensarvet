@@ -23,7 +23,7 @@ public class CommandReader {
     /**
      * Sets the next line to return, used for testing.
      *
-     * @param command
+     * @param command command to be added to que
      */
     public void setNextLine(String command) {
         this.nextLine.add(command);
@@ -32,7 +32,7 @@ public class CommandReader {
     /**
      * Returns a command set in setNextLine or reads scanner.
      *
-     * @param command
+     * @param command command found in que or read from scanner if que empty
      */
     public String nextLine() {
         if (nextLine.isEmpty()) {
