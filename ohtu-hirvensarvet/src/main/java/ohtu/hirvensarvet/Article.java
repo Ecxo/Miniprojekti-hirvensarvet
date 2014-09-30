@@ -39,6 +39,20 @@ public class Article{
 		return this.Fields;
 	}
 
+	/** Gets a field value by its name.
+	  * @param field_name The name of the field of which we want the value
+	  * @return pointer to the matching field, null if not found.
+	*/
+	public BibliographyField getFieldByName(String field_name){
+		for(BibliographyField b : this.Fields){
+			if(b.name.equals(field_name)){
+				return b;
+			}
+		}
+		return null;
+	}
+
+
 	/** Adds a field to the article.
 	  *
 	  * @param field_name The name of the field to be added.
