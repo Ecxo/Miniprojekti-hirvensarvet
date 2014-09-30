@@ -1,12 +1,13 @@
 package ohtu.hirvensarvet;
 
+import java.io.FileWriter;
 import java.util.Iterator;
 
-public class ArticleExporter {
+public class ArticleFormatter {
     
     private Article article;
     
-    public ArticleExporter(Article article) {
+    public ArticleFormatter(Article article) {
         this.article = article;
     }
     
@@ -17,9 +18,6 @@ public class ArticleExporter {
         
         return bibtex;
     }
-    
-    //kyllä = padding 6
-    //jaa   =
     
     private String formatFields() {
         
@@ -54,6 +52,43 @@ public class ArticleExporter {
         }
         
         result += "= " + "\"" + field.value + "\"";
+        
+        return result;
+    }
+    
+    public void writeToFile(FileWriter writer) {
+        
+        try {
+            writer.write(exportArticle());
+        } catch(Exception e) {
+            System.out.println("Saving to disk failed");
+        }
+    }
+    
+    public String escapeNonAngloChars(String input) {
+        
+        String result = "";
+        
+        for(int i = 0; i < input.length(); i++) {
+            
+            char curchar = input.charAt(i);
+            
+            if(curchar == 'ä') {
+                result += "\\\"{a}";
+            } else if(curchar == 'ö') {
+                result += "\\\"{o}";
+            } else if(curchar == 'å') {
+                result += "\\aa";
+            } else if(curchar == 'Ä') {
+                result += "\\\"{A}";
+            } else if(curchar == 'Ö') {
+                result += "\\\"{O}";
+            } else if(curchar == 'Å') {
+                result += "\\AA";
+            } else {
+                result += curchar;
+            }
+        }
         
         return result;
     }

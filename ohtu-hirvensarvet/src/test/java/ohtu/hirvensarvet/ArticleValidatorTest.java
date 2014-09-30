@@ -31,6 +31,6 @@ public class ArticleValidatorTest {
 		//XXX:miksi javac/maven ei löydä symbolia validateArticle?
 		//ArticleValidator.java:rivi78:
 		//	public static int validateArticle(Article A);
-        //assertEquals(validateArticle(testArticle), 0);
+        assertEquals(ArticleValidator.validateArticle(testArticle), 0);
     }
 }
