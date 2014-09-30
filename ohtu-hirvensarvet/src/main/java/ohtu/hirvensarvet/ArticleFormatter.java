@@ -11,6 +11,10 @@ public class ArticleFormatter {
         this.article = article;
     }
     
+    /**
+     * Converts an article object to a Bibtex citation string.
+     * @return String which should be valid Bibtex syntax
+     */
     public String exportArticle() {
         
         String bibtex = "@article{" + article.getName() + ",\n";
@@ -51,11 +55,15 @@ public class ArticleFormatter {
             result += " ";
         }
         
-        result += "= " + "\"" + field.value + "\"";
+        result += "= " + "\"" + escapeNonAngloChars(field.value) + "\"";
         
         return result;
     }
     
+    /**
+     * Writes a Bibtex citation string corresponding to an article to a file
+     * @param writer writer object used for writing to a file
+     */
     public void writeToFile(FileWriter writer) {
         
         try {
@@ -64,6 +72,14 @@ public class ArticleFormatter {
             System.out.println("Saving to disk failed");
         }
     }
+    
+    /**
+     * Escapes non-anglo characters (å, ä, ö) according to Bibtex
+     * standard, replacing them with (\aa, \"{a}, \"{o}) correspondingly.
+     * @param input string to escape
+     * @return string which has the non-anglo characters replaced
+     * with escape sequences
+     */
     
     public String escapeNonAngloChars(String input) {
         

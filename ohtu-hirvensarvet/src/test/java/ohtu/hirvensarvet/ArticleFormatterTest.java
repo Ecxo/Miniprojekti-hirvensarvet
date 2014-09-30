@@ -80,8 +80,6 @@ public class ArticleFormatterTest {
         assertEquals(exporter.escapeNonAngloChars(test), test);
     }
     
-    //    \\\"{o} \\\"{a} \\\"{O} \\\"{A}
-    
     @Test
     public void nonAngloEscapingWorks1() {
         String test1 = "Detta intyg måste förevisas till Polisen";
