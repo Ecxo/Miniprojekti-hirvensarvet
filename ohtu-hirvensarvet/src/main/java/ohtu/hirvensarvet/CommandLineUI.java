@@ -13,8 +13,8 @@ import java.util.Scanner;
  * @author lasse
  */
 public class CommandLineUI implements UI {
-    private CommandReader scanner;
-    
+    private final CommandReader scanner;
+    private final ArticleValidator validator = new ArticleValidator();
     public CommandLineUI (CommandReader scanner) {
         
         this.scanner = scanner;
@@ -36,16 +36,36 @@ public class CommandLineUI implements UI {
         return input.split(" ");
     }
     
+    @Override
+    public int getInt(String prompt) {
+        System.out.print(prompt+" ");
+        int input = scanner.nextInt();
+        return input;
+    }    
     /**
      * Create a new article entry and query user for field types
      * and corresponding field values of the entry.
      * 
      * @param key Id-string of the article
      * @return Article object
+     * 
+     * 
      */
     @Override
     public Article addArticle(String key) {
         Article article = new Article(key);
+        //get citation type
+        System.out.println("Please select citation type: \n");
+        //System.out.print("Supported types: ");
+        for (int i = 0; i < ArticleValidator.citation_types.length; i++) {
+            System.out.print("(" + i + ")" + " " + ArticleValidator.citation_types[i]
+                + "\n");
+        }
+        int citation_type = getInt(">");
+        article.setCitationType(ArticleValidator.citation_types[citation_type]);
+        
+        
+        
         System.out.println("Add: Enter [field type] [field value] or done.");
         while(true) {
             String[] input = getCommand(">");

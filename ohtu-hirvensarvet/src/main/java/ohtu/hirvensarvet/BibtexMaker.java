@@ -35,13 +35,17 @@ public class BibtexMaker {
                     ui.displayMenu();
                     break;
                 case "add":
-                    if (command[1].isEmpty()) {
+                    if (command.length != 2) {
+                        System.out.println("Please enter article id (add somearticle)");
                         break;
                     }
                     articles.add(ui.addArticle(command[1]));
                 case "list":
                     for (Article a : this.articles) {
-                        System.out.println(a.toString());
+                        //System.out.println(a.toString());
+                        // Changed to pretty printing with article formatter
+                        ArticleFormatter formatter = new ArticleFormatter(a);
+                        System.out.print(formatter.exportArticle());
                     }
                 default:
                     break;

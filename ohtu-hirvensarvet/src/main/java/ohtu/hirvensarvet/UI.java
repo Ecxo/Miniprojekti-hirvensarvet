@@ -13,5 +13,6 @@ package ohtu.hirvensarvet;
 public interface UI {
     void displayMenu();
     String[] getCommand(String prompt);
+    int getInt(String prompt);
     Article addArticle(String key);
 }

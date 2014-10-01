@@ -40,4 +40,13 @@ public class CommandReader {
 
         return nextLine.poll();
     }
+    
+    /**
+     * Have to return int also
+     * @return next int from scanner
+     */
+    
+    public int nextInt() {
+        return this.scanner.nextInt();
+    }
 }

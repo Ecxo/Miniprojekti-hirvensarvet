@@ -17,7 +17,7 @@ public class ArticleFormatter {
      */
     public String exportArticle() {
         
-        String bibtex = "@article{" + article.getName() + ",\n";
+        String bibtex = "@" + article.getCitationType() + "{" + article.getName() + ",\n";
         bibtex += formatFields() + "\n}";
         
         return bibtex;

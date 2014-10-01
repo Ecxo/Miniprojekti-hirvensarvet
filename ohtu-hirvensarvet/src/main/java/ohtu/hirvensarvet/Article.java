@@ -17,6 +17,8 @@ public class Article{
 	  * equality checking.
 	  */
 	private String article_id;
+        
+        private String citation_type;
 
 	/** The list of fields and values that will go to the BibTex file. 
 	  */
@@ -34,6 +36,15 @@ public class Article{
 	String getName(){
 		return this.article_id;
 	}
+        
+        // laleppan: added citation type field.
+        String getCitationType() {
+            return this.citation_type;
+        }
+        
+        void setCitationType(String type) {
+            this.citation_type = type;
+        }
 
 	ArrayList<BibliographyField> getEntries(){
 		return this.Fields;
