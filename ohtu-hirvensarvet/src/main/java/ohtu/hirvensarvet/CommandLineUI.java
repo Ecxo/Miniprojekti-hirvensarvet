@@ -64,6 +64,25 @@ public class CommandLineUI implements UI {
         int citation_type = getInt(">");
         article.setCitationType(ArticleValidator.citation_types[citation_type]);
         
+        // Getting all mandatory fields
+        for (String mandatory_field : ArticleValidator.mandatory_fields[citation_type]) {
+            System.out.println("Please enter " + mandatory_field + ": ");
+            String[] input = getCommand(">");
+            String value = "";
+            for (int i = 0; i < input.length; i++ ) {
+                
+                String next;
+                
+                if(i == input.length - 1) {
+                    next = input[i];
+                } else {
+                    next = input[i] + " ";
+                }
+                
+                value = value.concat(next);
+            }
+            article.addField(mandatory_field, value);
+        }
         
         
         System.out.println("Add: Enter [field type] [field value] or done.");

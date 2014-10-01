@@ -47,6 +47,6 @@ public class CommandReader {
      */
     
     public int nextInt() {
-        return this.scanner.nextInt();
+        return Integer.parseInt(this.scanner.nextLine());
     }
 }
