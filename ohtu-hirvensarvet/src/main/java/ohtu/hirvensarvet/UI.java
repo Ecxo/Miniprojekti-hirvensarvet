@@ -15,4 +15,5 @@ public interface UI {
     String[] getCommand(String prompt);
     int getInt(String prompt);
     Article addArticle(String key);
+    void saveEntries(String formattedEntries);
 }

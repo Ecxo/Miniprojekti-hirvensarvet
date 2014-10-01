@@ -61,19 +61,6 @@ public class ArticleFormatter {
     }
     
     /**
-     * Writes a Bibtex citation string corresponding to an article to a file
-     * @param writer writer object used for writing to a file
-     */
-    public void writeToFile(FileWriter writer) {
-        
-        try {
-            writer.write(exportArticle());
-        } catch(Exception e) {
-            System.out.println("Saving to disk failed");
-        }
-    }
-    
-    /**
      * Escapes non-anglo characters (å, ä, ö) according to Bibtex
      * standard, replacing them with (\aa, \"{a}, \"{o}) correspondingly.
      * @param input string to escape

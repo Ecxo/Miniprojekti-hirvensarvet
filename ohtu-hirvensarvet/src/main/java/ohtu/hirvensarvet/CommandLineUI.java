@@ -6,6 +6,8 @@
 
 package ohtu.hirvensarvet;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 /**
@@ -36,6 +38,28 @@ public class CommandLineUI implements UI {
         return input.split(" ");
     }
     
+    public void saveEntries(String formattedEntries) {
+        System.out.println("Please specify the name of the file to save into, or 'cancel' to cancel the operation:");
+        String filename = getCommand(">")[0];
+        if(filename.equals("cancel")) {
+            return;
+        }
+        
+        File file = new File("target" + File.separator + filename);
+        
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(formattedEntries);
+            writer.close();
+        } catch(Exception e) {
+            System.out.println("Something went wrong");
+            return;
+        }
+        
+        System.out.println("Entries successfully saved to: '" +
+                file.getAbsolutePath() + "'");
+    }
+    
     @Override
     public int getInt(String prompt) {
         System.out.print(prompt+" ");
@@ -61,7 +85,16 @@ public class CommandLineUI implements UI {
             System.out.print("(" + i + ")" + " " + ArticleValidator.citation_types[i]
                 + "\n");
         }
-        int citation_type = getInt(">");
+        
+        int citation_type = 0;
+        
+        try {
+            citation_type = getInt(">");
+        } catch(Exception e) {
+            System.out.println("Invalid citation type");
+            return addArticle(key);
+        }
+        
         article.setCitationType(ArticleValidator.citation_types[citation_type]);
         
         // Getting all mandatory fields
