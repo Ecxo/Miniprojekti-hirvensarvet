@@ -7,12 +7,15 @@ public class ArticleFormatter {
     
     private Article article;
     
+
     public ArticleFormatter(Article article) {
         this.article = article;
     }
     
+
     /**
-     * Converts an article object to a Bibtex citation string.
+     * Static version of the exportArticle()-method.
+     * @param article article to format
      * @return String which should be valid Bibtex syntax
      */
     public static String exportArticle(Article article) {
@@ -23,6 +26,11 @@ public class ArticleFormatter {
         return bibtex;
     }
     
+    /**
+     * Converts an article object to a Bibtex citation string.
+     * Non-static verion of the exportArticle(Article article)-method.
+     * @return String which should be valid Bibtex syntax
+     */
     public String exportArticle() {
         return exportArticle(article);
     }

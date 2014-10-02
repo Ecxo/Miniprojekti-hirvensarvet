@@ -63,7 +63,7 @@ public class ArticleValidator{
 		return 0;
 	}
 
-	/** Checks wether a field is a valid BibTex field or not.
+	/** Checks whether a field is a valid BibTex field or not.
 	* @param field_name the name of the field to be validated
 	* @return true if field name is valid, false otherwise
 	*/
@@ -76,7 +76,7 @@ public class ArticleValidator{
 		return false;
 	}
 
-	/** Checks wether the citation_type is a valid BibTex type or not.
+	/** Checks whether the citation_type is a valid BibTex type or not.
 	* @param field_name the citation_type to be validated
 	* @return true if type name is valid, false otherwise
 	*/

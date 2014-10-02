@@ -92,6 +92,10 @@ public class CommandLineUI implements UI {
         
         try {
             citation_type = getInt(">");
+            
+            if(citation_type != 0 && citation_type != 1) {
+                throw new Exception();
+            }
         } catch(Exception e) {
             printer.println("Invalid citation type");
             return addArticle(key);
