@@ -16,4 +16,16 @@
                 <goal>-Dcobertura.report.format=xml</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-Jenkins full</actionName>
+            <displayName>Jenkins full</displayName>
+            <goals>
+                <goal>javadoc:javadoc</goal>
+                <goal>cobertura:cobertura</goal>
+                <goal>-Dcobertura.report.format=xml</goal>
+                <goal>jxr:jxr</goal>
+                <goal>checkstyle:checkstyle</goal>
+                <goal>site</goal>
+            </goals>
+        </action>
     </actions>

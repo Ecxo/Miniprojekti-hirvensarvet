@@ -6,7 +6,7 @@ scenario "creating article reference", {
 
     given "user creates article", {
         cmd = new CommandReader(new Scanner(System.in))
-        ui = new CommandLineUI(cmd);
+        ui = new CommandLineUI(cmd,printer);
         cmd.setNextLine("add test");        
         }
 
@@ -22,7 +22,7 @@ scenario "creating article reference", {
 
     then "the article list should contain 1 article", {
         cmd.setNextLine("quit")
-        bibmaker = new BibtexMaker(ui)
+        bibmaker = new BibtexMaker(ui,printer)
         bibmaker.run()
         bibmaker.getArticles().size().shouldBeGreaterThan 0
         }
@@ -33,8 +33,9 @@ scenario "creating article reference", {
 scenario "creating article with incorrect field", {
 
     given "user creates article", {
+        printer = new printer;
         cmd = new CommandReader(new Scanner(System.in))
-        ui = new CommandLineUI(cmd);
+        ui = new CommandLineUI(cmd,printer);
         cmd.setNextLine("add test");        
         }
 
