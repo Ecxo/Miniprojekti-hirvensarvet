@@ -17,29 +17,21 @@ public class CommandLineUITest {
     /*see: 
      * http://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
      * */
-
     private CommandReader cmd;
+    private Printer printer;
 
     public CommandLineUITest() {
-        
     }
-
 
     @Before
     public void setUp() {
         this.cmd = new CommandReader(new Scanner(System.in));
-        ui = new CommandLineUI(cmd);
-    }
+        this.printer = new Printer();
+        ui = new CommandLineUI(cmd, printer);
 
-    @After
-    public void cleanUp() {
-
-    }
-
-
-    @Test
-    public void addArticleBasicCase() {
-
+        /**
+         * Creating a valid article used in tests
+         */
         String testname = "testname";
         cmd.setNextLine("add test");
         cmd.setNextLine("0");
@@ -48,12 +40,32 @@ public class CommandLineUITest {
         cmd.setNextLine("aku ankka");
         cmd.setNextLine("1999");
         cmd.setNextLine("done");
-        cmd.setNextLine("quit");
 
-        BibtexMaker testUi = new BibtexMaker(ui);
-        testUi.run();
-        testUi.getArticles().get(0).toString();
-        assertEquals(testUi.getArticles().get(0).getFieldByName("title").value, testname);
     }
 
+    @After
+    public void cleanUp() {
+    }
+
+    @Test
+    public void addArticleBasicCase() {
+
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        testUi.getArticles().get(0).toString();
+        assertEquals(testUi.getArticles().get(0).getFieldByName("title").value, "testname");
+    }
+
+    @Test
+    public void corretlyPrintedListOfArticles() {
+
+        cmd.setNextLine("list");
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("author  = \"Hessu\","));
+        assertTrue(printer.historyContainsLine("aku ankka"));
+        assertTrue(printer.historyContainsLine("1999"));
+    }
 }

@@ -17,9 +17,11 @@ import java.util.Scanner;
 public class CommandLineUI implements UI {
     private final CommandReader scanner;
     private final ArticleValidator validator = new ArticleValidator();
-    public CommandLineUI (CommandReader scanner) {
+    private Printer printer;
+    public CommandLineUI (CommandReader scanner, Printer printer) {
         
         this.scanner = scanner;
+        this.printer = printer;
     }
     
     /**
@@ -33,13 +35,13 @@ public class CommandLineUI implements UI {
      */
     @Override
     public String[] getCommand(String prompt) {
-        System.out.print(prompt+" ");
+        printer.print(prompt+" ");
         String input = scanner.nextLine();
         return input.split(" ");
     }
     
     public void saveEntries(String formattedEntries) {
-        System.out.println("Please specify the name of the file to save into, or 'cancel' to cancel the operation:");
+        printer.println("Please specify the name of the file to save into, or 'cancel' to cancel the operation:");
         String filename = getCommand(">")[0];
         if(filename.equals("cancel")) {
             return;
@@ -52,17 +54,17 @@ public class CommandLineUI implements UI {
             writer.write(formattedEntries);
             writer.close();
         } catch(Exception e) {
-            System.out.println("Something went wrong");
+            printer.println("Something went wrong");
             return;
         }
         
-        System.out.println("Entries successfully saved to: '" +
+        printer.println("Entries successfully saved to: '" +
                 file.getAbsolutePath() + "'");
     }
     
     @Override
     public int getInt(String prompt) {
-        System.out.print(prompt+" ");
+        printer.print(prompt+" ");
         int input = scanner.nextInt();
         return input;
     }    
@@ -79,10 +81,10 @@ public class CommandLineUI implements UI {
     public Article addArticle(String key) {
         Article article = new Article(key);
         //get citation type
-        System.out.println("Please select citation type: \n");
-        //System.out.print("Supported types: ");
+        printer.println("Please select citation type: \n");
+        //printer.print("Supported types: ");
         for (int i = 0; i < ArticleValidator.citation_types.length; i++) {
-            System.out.print("(" + i + ")" + " " + ArticleValidator.citation_types[i]
+            printer.print("(" + i + ")" + " " + ArticleValidator.citation_types[i]
                 + "\n");
         }
         
@@ -91,7 +93,7 @@ public class CommandLineUI implements UI {
         try {
             citation_type = getInt(">");
         } catch(Exception e) {
-            System.out.println("Invalid citation type");
+            printer.println("Invalid citation type");
             return addArticle(key);
         }
         
@@ -99,7 +101,7 @@ public class CommandLineUI implements UI {
         
         // Getting all mandatory fields
         for (String mandatory_field : ArticleValidator.mandatory_fields[citation_type]) {
-            System.out.println("Please enter " + mandatory_field + ": ");
+            printer.println("Please enter " + mandatory_field + ": ");
             String[] input = getCommand(">");
             String value = "";
             for (int i = 0; i < input.length; i++ ) {
@@ -118,7 +120,7 @@ public class CommandLineUI implements UI {
         }
         
         
-        System.out.println("Add: Enter [field type] [field value] or help to display field types.\n"
+        printer.println("Add: Enter [field type] [field value] or help to display field types.\n"
                 + "Enter done to quit.");
         while(true) {
             String[] input = getCommand(">");
@@ -127,13 +129,13 @@ public class CommandLineUI implements UI {
             }
             // Display available field types
             if (input[0].toLowerCase().equals("help")) {
-                System.out.println("Valid types:\n" + displayFieldTypes());
+                printer.println("Valid types:\n" + displayFieldTypes());
                 continue;
             }
            
             String type = input[0];
 			if(!ArticleValidator.isValidFieldName(type)){
-				System.out.println("\""+type+"\" is not a valid BibTex field.");
+				printer.println("\""+type+"\" is not a valid BibTex field.");
 				continue;
 			}
 
@@ -152,9 +154,9 @@ public class CommandLineUI implements UI {
             }
             
             article.addField(type, value);
-            //System.out.print(article.toString());
+            //printer.print(article.toString());
         }
-        //System.out.print(article.toString());
+        //printer.print(article.toString());
         return article;
     }
     
@@ -163,13 +165,13 @@ public class CommandLineUI implements UI {
      */
     @Override
     public void displayMenu() {
-        System.out.println("Available commands:");
-        System.out.println("add");
-        System.out.println("remove");
-        System.out.println("list");
-        System.out.println("save");
-        System.out.println("quit");
-        System.out.println("help");
+        printer.println("Available commands:");
+        printer.println("add");
+        printer.println("remove");
+        printer.println("list");
+        printer.println("save");
+        printer.println("quit");
+        printer.println("help");
     }
     
     public String displayFieldTypes() {
