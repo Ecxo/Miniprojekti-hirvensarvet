@@ -58,7 +58,7 @@ public class CommandLineUITest {
     }
 
     @Test
-    public void corretlyPrintedListOfArticles() {
+    public void correctlyPrintedListOfArticles() {
 
         cmd.setNextLine("list");
         cmd.setNextLine("quit");
@@ -67,5 +67,27 @@ public class CommandLineUITest {
         assertTrue(printer.historyContainsLine("author  = \"Hessu\","));
         assertTrue(printer.historyContainsLine("aku ankka"));
         assertTrue(printer.historyContainsLine("1999"));
+    }
+
+    @Test
+    public void helpIsPrinted() {
+
+        cmd.setNextLine("help");
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("Available commands:"));
+    }
+
+    @Test
+    public void savingToFileUI() {
+
+        cmd.setNextLine("save");
+        cmd.setNextLine("test");
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("Please specify the name of the file to save into, or 'cancel' to cancel the operation:"));
+        assertTrue(printer.historyContainsLine("Entries successfully saved"));
     }
 }
