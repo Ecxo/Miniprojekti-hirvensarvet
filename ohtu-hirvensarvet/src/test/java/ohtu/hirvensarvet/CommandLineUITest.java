@@ -70,7 +70,7 @@ public class CommandLineUITest {
         ui = makeCmdLineUI("test1 test2 test3\ndone");
         Article article = ui.addArticle("test");
         
-        assertEquals(article.getEntries().get(0).name, "test1");
-        assertEquals(article.getEntries().get(0).value, "test2 test3");
+        assertEquals(article.getFields().get(0).name, "test1");
+        assertEquals(article.getFields().get(0).value, "test2 test3");
     }
 }

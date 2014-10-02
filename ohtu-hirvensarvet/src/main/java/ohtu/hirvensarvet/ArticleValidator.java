@@ -52,41 +52,68 @@ public class ArticleValidator{
 		"volume",
 		"year"
 	};
-
-	/** Constructs an article validator, given configurations.
-	*/
-	public ArticleValidator(/*configuration source*/){
-		//read lots of strings from a configuration file
-		//when we get this far lets make all functions non-static
-	}
 	
 	/** Validates all field contents of this article.
 	* @param A Article for which the contents of the fields will be validated.
 	* @return An error code or message
 	*/
 	public static int validateArticleFields(Article A){
-		//TODO: ihan vapaasti saa tehdä
+		//TODO: checkataan onko vuosiluku järkeenkäyvä, Nimet alkavat isolla kirjaimella, jne...
+		//kuuluuko kakkos sprinttiin?
 		return 0;
+	}
+
+	/** Checks wether a field is a valid BibTex field or not.
+	* @param field_name the name of the field to be validated
+	* @return true if field name is valid, false otherwise
+	*/
+	public static boolean isValidFieldName(String field_name){
+		for(String S : valid_fields){
+			if(field_name.equals(S)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/** Checks wether the citation_type is a valid BibTex type or not.
+	* @param field_name the citation_type to be validated
+	* @return true if type name is valid, false otherwise
+	*/
+	public static boolean isValidCitationType(String field_name){
+		for(String S : citation_types){
+			if(field_name.equals(S)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/** Validates that the article contains all the mandatory fields
 	* and that all optional field names are valid, does not validate 
 	* field contents.
 	* @param A The article to be validated
-	* @return An error type or message, this will come later
+	* @return An error type or message, 0:valid, 1:citation type missing, 2:mandatory field(s) missing, 3:has an invalid field
 	*/
 	public static int validateArticle(Article A){
 		//does the bibliography entry contain a citation type?
-		BibliographyField f = A.getFieldByName("citation_type");
-		if(f == null) return 1;
+		if(!isValidCitationType(A.getCitationType())){
+			return 1;
+		}
 
 		//does the bibliography entry contain all mandatory fields for its type
 		//XXX: this has to be refactored, arrays suck for this
 		int i;
-		String[] mandatory = mandatory_fields[0];//hardcoded 0 (book) for testing purposes
+		for(BibliographyField B : A.getFields()){
+			if(!isValidFieldName(B.name)){
+				return 3;
+			}
+		}
+		/*
+		String[] mandatory = mandatory_fields[0];//hardcoded 0 (article) for testing purposes
 		for(i=0; i<mandatory.length; i++){
 			if(A.getFieldByName(mandatory[i]) == null) return 2;
-		}
+		}*/
 		return 0;
 	}
         

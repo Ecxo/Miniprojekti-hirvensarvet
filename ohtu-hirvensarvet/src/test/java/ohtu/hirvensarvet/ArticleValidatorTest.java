@@ -16,21 +16,21 @@ public class ArticleValidatorTest {
     
     @Before
     public void setUp() {
+    }
+   
+    @Test
+    public void validateArticleValid() {
         testArticle = new Article("anyid");
-        testArticle.addField("citation_type", "book");
+        testArticle.setCitationType("article");
         testArticle.addField("author", "anybody");
         testArticle.addField("editor", "anybody");
         testArticle.addField("title", "any title");
         testArticle.addField("publisher", "any publisher");
         testArticle.addField("year", "any year");
-    }
-    
-    @Test
-    public void validateBook() {
-		assertEquals(0, 0);
-		//XXX:miksi javac/maven ei löydä symbolia validateArticle?
-		//ArticleValidator.java:rivi78:
-		//	public static int validateArticle(Article A);
-        assertEquals(ArticleValidator.validateArticle(testArticle), 0);
-    }
+		assertEquals(0, ArticleValidator.validateArticle(testArticle));
+	}
+
+/*	public void validateArticleNoCitationType(){
+
+	}*/
 }

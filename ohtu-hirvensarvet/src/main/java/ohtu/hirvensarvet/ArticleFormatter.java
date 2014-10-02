@@ -28,10 +28,10 @@ public class ArticleFormatter {
         String bibtexfields = "";
         
         int maxfieldnamelen = BibliographyField
-                .getMaxNameLength(article.getEntries());
+                .getMaxNameLength(article.getFields());
         int thisManySpaces = maxfieldnamelen + 1;
 
-        Iterator<BibliographyField> fields = article.getEntries().iterator();
+        Iterator<BibliographyField> fields = article.getFields().iterator();
         
         while(fields.hasNext()) {
             

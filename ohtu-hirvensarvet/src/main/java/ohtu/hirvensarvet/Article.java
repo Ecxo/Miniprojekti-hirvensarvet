@@ -17,7 +17,7 @@ public class Article{
 	  * equality checking.
 	  */
 	private String article_id;
-        
+    //XXX: mitä jos citation_type olisikin kokonaisluku? Arrayden Indexointi helpottuisi huomattavasti.
         private String citation_type;
 
 	/** The list of fields and values that will go to the BibTex file. 
@@ -46,7 +46,7 @@ public class Article{
             this.citation_type = type;
         }
 
-	ArrayList<BibliographyField> getEntries(){
+	ArrayList<BibliographyField> getFields(){
 		return this.Fields;
 	}
 
