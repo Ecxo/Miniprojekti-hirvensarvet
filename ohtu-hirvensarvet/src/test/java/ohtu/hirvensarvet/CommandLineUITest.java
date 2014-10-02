@@ -102,4 +102,28 @@ public class CommandLineUITest {
 
     }
 
+    @Test
+    public void userTriesToAddInvalidFields() {
+        this.cmd = new CommandReader(new Scanner(System.in));
+        this.printer = new Printer();
+        ui = new CommandLineUI(cmd, printer);
+
+        String testname = "testname";
+        cmd.setNextLine("add test");
+        cmd.setNextLine("0");
+        cmd.setNextLine("Hessu");
+        cmd.setNextLine(testname);
+        cmd.setNextLine("aku ankka");
+        cmd.setNextLine("1999");
+        cmd.setNextLine("lazerturbo man");
+        cmd.setNextLine("done");
+
+
+        cmd.setNextLine("add");
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("is not a valid BibTex field."));
+
+    }
 }
