@@ -126,6 +126,11 @@ public class CommandLineUI implements UI {
             }
            
             String type = input[0];
+			if(!ArticleValidator.isValidFieldName(type)){
+				System.out.println("\""+type+"\" is not a valid BibTex field.");
+				continue;
+			}
+
             String value = "";
             for (int i = 1; i < input.length; i++ ) {
                 
