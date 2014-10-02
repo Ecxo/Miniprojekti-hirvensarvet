@@ -7,4 +7,13 @@
                 <goal>test</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-cobertura</actionName>
+            <displayName>cobertura</displayName>
+            <goals>
+                <goal>site</goal>
+                <goal>cobertura:cobertura</goal>
+                <goal>-Dcobertura.report.format=xml</goal>
+            </goals>
+        </action>
     </actions>

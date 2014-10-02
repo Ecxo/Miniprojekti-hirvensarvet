@@ -12,65 +12,48 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CommandLineUITest {
-    
+
     CommandLineUI ui;
     /*see: 
      * http://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
      * */
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    private ByteArrayInputStream input;
-    
+
+    private CommandReader cmd;
+
     public CommandLineUITest() {
+        
     }
-    
-    private CommandLineUI makeCmdLineUI(String message) {
-        return new CommandLineUI(new CommandReader(new Scanner(message)));
-    }
-    
+
+
     @Before
     public void setUp() {
-        System.setOut(new PrintStream(output));
+        this.cmd = new CommandReader(new Scanner(System.in));
+        ui = new CommandLineUI(cmd);
     }
-    
+
     @After
     public void cleanUp() {
-        
-        System.setOut(null);
-        System.setIn(System.in);
+
     }
-    
-    @Test
-    public void getCommandCorrect() {
-        
-        String message = "add 2";
-        ui = makeCmdLineUI(message);
-        
-        String[] result = ui.getCommand(">");
-        assertEquals(output.toString(), "> ");
-        assertEquals(result[0], "add");
-        assertEquals(result[1], "2");
-        
-    }
-    
+
+
     @Test
     public void addArticleBasicCase() {
-        ui = makeCmdLineUI("dOnE");
-        String name = "ldskfjlfdskjfsljsa";
-        Article article = ui.addArticle(name);
-        
-        assertTrue(output.toString().toLowerCase().contains("or done"));
-        assertTrue(output.toString().toLowerCase().contains("add"));
-        assertTrue(output.toString().contains(">"));
-        
-        assertEquals(article.getName(), name);
+
+        String testname = "testname";
+        cmd.setNextLine("add test");
+        cmd.setNextLine("0");
+        cmd.setNextLine("Hessu");
+        cmd.setNextLine(testname);
+        cmd.setNextLine("aku ankka");
+        cmd.setNextLine("1999");
+        cmd.setNextLine("done");
+        cmd.setNextLine("quit");
+
+        BibtexMaker testUi = new BibtexMaker(ui);
+        testUi.run();
+        testUi.getArticles().get(0).toString();
+        assertEquals(testUi.getArticles().get(0).getFieldByName("title").value, testname);
     }
-    
-    @Test
-    public void addArticleForReal() {
-        ui = makeCmdLineUI("test1 test2 test3\ndone");
-        Article article = ui.addArticle("test");
-        
-        assertEquals(article.getFields().get(0).name, "test1");
-        assertEquals(article.getFields().get(0).value, "test2 test3");
-    }
+
 }

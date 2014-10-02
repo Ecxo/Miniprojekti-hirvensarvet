@@ -29,6 +29,8 @@ public class ArticleFormatterTest {
         testArticle = new Article(articleid);
         testArticle.addField("author", authorname);
         testArticle.addField("title", articletitle);
+        testArticle.setCitationType("article");
+               
         
         exporter = new ArticleFormatter(testArticle);
         testOutput = exporter.exportArticle();

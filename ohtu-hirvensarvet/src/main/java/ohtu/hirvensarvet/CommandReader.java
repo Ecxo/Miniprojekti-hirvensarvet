@@ -17,7 +17,7 @@ public class CommandReader {
     CommandReader(Scanner scan) {
         this.scanner = scan;
         this.nextLine = new LinkedList<>();
-        
+
     }
 
     /**
@@ -31,6 +31,7 @@ public class CommandReader {
 
     /**
      * Returns a command set in setNextLine or reads scanner.
+     *
      * @return the returned line from que or scanner.
      */
     public String nextLine() {
@@ -40,13 +41,17 @@ public class CommandReader {
 
         return nextLine.poll();
     }
-    
+
     /**
      * Have to return int also
+     * With pre-loaded list of commands, parses integer.
      * @return next int from scanner
      */
-    
     public int nextInt() {
-        return Integer.parseInt(this.scanner.nextLine());
+        if (nextLine.isEmpty()) {
+            this.nextLine.add(scanner.nextLine());
+        }
+        
+        return Integer.parseInt(this.nextLine.poll());
     }
 }

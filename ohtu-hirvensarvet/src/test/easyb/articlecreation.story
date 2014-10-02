@@ -7,15 +7,16 @@ scenario "creating article reference", {
     given "user creates article", {
         cmd = new CommandReader(new Scanner(System.in))
         ui = new CommandLineUI(cmd);
-        cmd.setNextLine("add article");        
+        cmd.setNextLine("add test");        
         }
 
     when "required fiels for article are given", {
-        cmd.setNextLine("journal Aku Ankka");
-        cmd.setNextLine("author Walt Disney");
-        cmd.setNextLine("title Aku Ankka ostaa makkaraa");
-        cmd.setNextLine("year 1999");
-        cmd.setNextLine("done");
+        cmd.setNextLine("0");
+        cmd.setNextLine("Walt Disney");
+        cmd.setNextLine("Aku ankka ostaa jotain");
+        cmd.setNextLine("Aku Ankka");
+        cmd.setNextLine("1999");
+cmd.setNextLine("done");
         }
 
 
