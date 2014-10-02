@@ -90,4 +90,16 @@ public class CommandLineUITest {
         assertTrue(printer.historyContainsLine("Please specify the name of the file to save into, or 'cancel' to cancel the operation:"));
         assertTrue(printer.historyContainsLine("Entries successfully saved"));
     }
+
+    @Test
+    public void userDoesNotSpecifyWhatToAdd() {
+
+        cmd.setNextLine("add");
+        cmd.setNextLine("quit");
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("Please enter article id"));
+
+    }
+
 }
