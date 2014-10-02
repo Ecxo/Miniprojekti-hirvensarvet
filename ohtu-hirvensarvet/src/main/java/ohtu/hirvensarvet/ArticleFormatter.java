@@ -15,15 +15,19 @@ public class ArticleFormatter {
      * Converts an article object to a Bibtex citation string.
      * @return String which should be valid Bibtex syntax
      */
-    public String exportArticle() {
+    public static String exportArticle(Article article) {
         
         String bibtex = "@" + article.getCitationType() + "{" + article.getName() + ",\n";
-        bibtex += formatFields() + "\n}";
+        bibtex += formatFields(article) + "\n}";
         
         return bibtex;
     }
     
-    private String formatFields() {
+    public String exportArticle() {
+        return exportArticle(article);
+    }
+    
+    private static String formatFields(Article article) {
         
         String bibtexfields = "";
         
@@ -36,7 +40,7 @@ public class ArticleFormatter {
         while(fields.hasNext()) {
             
             BibliographyField field = fields.next();
-            bibtexfields += singleFieldLine(field, thisManySpaces);
+            bibtexfields += singleFieldLine(field, thisManySpaces, article);
             
             if(fields.hasNext()) {
                 bibtexfields += ",\n";
@@ -46,7 +50,8 @@ public class ArticleFormatter {
         return bibtexfields;
     }
     
-    private String singleFieldLine(BibliographyField field, int padding) {
+    private static String singleFieldLine(BibliographyField field,
+            int padding, Article article) {
         
         String result = "    ";
         result += field.name.toLowerCase();
@@ -68,7 +73,7 @@ public class ArticleFormatter {
      * with escape sequences
      */
     
-    public String escapeNonAngloChars(String input) {
+    public static String escapeNonAngloChars(String input) {
         
         String result = "";
         

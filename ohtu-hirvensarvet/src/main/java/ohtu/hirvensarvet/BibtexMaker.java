@@ -72,8 +72,7 @@ public class BibtexMaker {
         String result = "";
 
         for (Article a : articles) {
-            ArticleFormatter formatter = new ArticleFormatter(a);
-            result += formatter.exportArticle() + "\n\n";
+            result += ArticleFormatter.exportArticle(a) + "\n\n";
         }
 
         return result;
