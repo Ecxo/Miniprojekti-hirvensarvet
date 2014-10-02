@@ -39,7 +39,6 @@ public class CommandLineUITest {
         cmd.setNextLine(testname);
         cmd.setNextLine("aku ankka");
         cmd.setNextLine("1999");
-        cmd.setNextLine("done");
 
     }
 
@@ -49,7 +48,7 @@ public class CommandLineUITest {
 
     @Test
     public void addArticleBasicCase() {
-
+        cmd.setNextLine("done");
         cmd.setNextLine("quit");
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
@@ -59,8 +58,9 @@ public class CommandLineUITest {
 
     @Test
     public void correctlyPrintedListOfArticles() {
-
+        cmd.setNextLine("done");
         cmd.setNextLine("list");
+
         cmd.setNextLine("quit");
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
@@ -71,7 +71,7 @@ public class CommandLineUITest {
 
     @Test
     public void helpIsPrinted() {
-
+        cmd.setNextLine("done");
         cmd.setNextLine("help");
         cmd.setNextLine("quit");
         BibtexMaker testUi = new BibtexMaker(ui, printer);
@@ -81,7 +81,7 @@ public class CommandLineUITest {
 
     @Test
     public void savingToFileUI() {
-
+        cmd.setNextLine("done");
         cmd.setNextLine("save");
         cmd.setNextLine("test");
         cmd.setNextLine("quit");
@@ -93,37 +93,50 @@ public class CommandLineUITest {
 
     @Test
     public void userDoesNotSpecifyWhatToAdd() {
-
+        cmd.setNextLine("done");
         cmd.setNextLine("add");
         cmd.setNextLine("quit");
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
-        assertTrue(printer.historyContainsLine("Please enter article id"));
+        assertTrue(printer.historyContainsLine("Please enter article id (add somearticle)"));
 
     }
 
     @Test
     public void userTriesToAddInvalidFields() {
-        this.cmd = new CommandReader(new Scanner(System.in));
-        this.printer = new Printer();
-        ui = new CommandLineUI(cmd, printer);
 
-        String testname = "testname";
-        cmd.setNextLine("add test");
-        cmd.setNextLine("0");
-        cmd.setNextLine("Hessu");
-        cmd.setNextLine(testname);
-        cmd.setNextLine("aku ankka");
-        cmd.setNextLine("1999");
         cmd.setNextLine("lazerturbo man");
         cmd.setNextLine("done");
-
-
         cmd.setNextLine("add");
         cmd.setNextLine("quit");
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
         assertTrue(printer.historyContainsLine("is not a valid BibTex field."));
+
+    }
+
+    @Test
+    public void userGetsHelpWhenAddingFields() {
+        cmd.setNextLine("help");
+        cmd.setNextLine("done");
+        cmd.setNextLine("quit");
+
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("Valid types:"));
+
+    }
+
+    @Test
+    public void userCanAddValidOptionalField() {
+        cmd.setNextLine("chapter IV");
+        cmd.setNextLine("done");
+        cmd.setNextLine("list");
+        cmd.setNextLine("quit");
+
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("chapter"));
 
     }
 }
