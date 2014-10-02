@@ -81,6 +81,7 @@ public class ArticleValidator{
 	* @return true if type name is valid, false otherwise
 	*/
 	public static boolean isValidCitationType(String field_name){
+		if(field_name == null) return false;
 		for(String S : citation_types){
 			if(field_name.equals(S)){
 				return true;
@@ -96,24 +97,24 @@ public class ArticleValidator{
 	* @return An error type or message, 0:valid, 1:citation type missing, 2:mandatory field(s) missing, 3:has an invalid field
 	*/
 	public static int validateArticle(Article A){
-		//does the bibliography entry contain a citation type?
+		//does the Article contain a citation type?
 		if(!isValidCitationType(A.getCitationType())){
 			return 1;
 		}
-
-		//does the bibliography entry contain all mandatory fields for its type
-		//XXX: this has to be refactored, arrays suck for this
-		int i;
+		
+		//does the article contain all Mandatory fields for its type
+		/*int i;
+		String[] mandatory = mandatory_fields[0];//hardcoded 0 (article) for testing purposes
+		for(i=0; i<mandatory.length; i++){
+			if(A.getFieldByName(mandatory[i]) == null) return 2;
+		}*/
+		
+		//does the Article contain any invalid bibtex fields?
 		for(BibliographyField B : A.getFields()){
 			if(!isValidFieldName(B.name)){
 				return 3;
 			}
 		}
-		/*
-		String[] mandatory = mandatory_fields[0];//hardcoded 0 (article) for testing purposes
-		for(i=0; i<mandatory.length; i++){
-			if(A.getFieldByName(mandatory[i]) == null) return 2;
-		}*/
 		return 0;
 	}
         
