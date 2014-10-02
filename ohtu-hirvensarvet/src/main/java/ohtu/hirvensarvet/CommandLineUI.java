@@ -118,11 +118,17 @@ public class CommandLineUI implements UI {
         }
         
         
-        System.out.println("Add: Enter [field type] [field value] or done.");
+        System.out.println("Add: Enter [field type] [field value] or help to display field types.\n"
+                + "Enter done to quit.");
         while(true) {
             String[] input = getCommand(">");
             if (input[0].toLowerCase().equals("done")) {
                 break;
+            }
+            // Display available field types
+            if (input[0].toLowerCase().equals("help")) {
+                System.out.println("Valid types:\n" + displayFieldTypes());
+                continue;
             }
            
             String type = input[0];
@@ -164,5 +170,13 @@ public class CommandLineUI implements UI {
         System.out.println("save");
         System.out.println("quit");
         System.out.println("help");
+    }
+    
+    public String displayFieldTypes() {
+        String types = "";
+        for (String type : ArticleValidator.valid_fields) {
+            types += type + "\n";
+        }
+        return types;
     }
 }
