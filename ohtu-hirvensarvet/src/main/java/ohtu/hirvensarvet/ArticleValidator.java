@@ -114,8 +114,18 @@ public class ArticleValidator{
 			if(!isValidFieldName(B.name)){
 				return 3;
 			}
+                        
+                        if(!fieldValueContainsValidChars(B)) {
+                            return 4;
+                        }
 		}
 		return 0;
 	}
+        
+        public static boolean 
+                fieldValueContainsValidChars(BibliographyField bf) {
+            
+            return !bf.value.matches(".*[öäåÖÄÅ].*");
+        }
         
 }

@@ -99,4 +99,15 @@ public class ArticleValidatorTest {
         testArticle.setCitationType("trampoline");
 		assertEquals(false, ArticleValidator.isValidCitationType(testArticle.getCitationType()));
 	}
+        
+        @Test
+        public void detectsIllegalCharacters() {
+            BibliographyField bf1 = 
+                    new BibliographyField("author", "K. J\\\"{a}rvela");
+            BibliographyField bf2 =
+                    new BibliographyField("title", "Åke ja Ääkköset");
+            assertTrue(ArticleValidator.fieldValueContainsValidChars(bf1));
+            assertTrue(!ArticleValidator.fieldValueContainsValidChars(bf2));
+            
+        }
 }
