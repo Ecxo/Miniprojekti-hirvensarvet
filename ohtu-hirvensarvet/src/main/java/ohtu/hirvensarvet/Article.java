@@ -7,6 +7,7 @@
 package ohtu.hirvensarvet;
 
 import java.util.ArrayList;
+import java.util.List;
 /** Container object for all the necessary information for creating
  * a BibTex bibliography entry.
  *
@@ -22,7 +23,7 @@ public class Article{
 
 	/** The list of fields and values that will go to the BibTex file. 
 	  */
-	private ArrayList<BibliographyField> Fields;
+	private List<BibliographyField> Fields;
 
 	/** Constructs a new Article with no fields.
 	  *
@@ -46,7 +47,7 @@ public class Article{
             this.citation_type = type;
         }
 
-	ArrayList<BibliographyField> getFields(){
+	List<BibliographyField> getFields(){
 		return this.Fields;
 	}
 
@@ -94,4 +95,9 @@ public class Article{
 		//format the Article data into bibtex format
 		return "";
 	}
+        
+        public void setAllFields(List<BibliographyField> fields) {
+            
+            this.Fields = fields;
+        }
 }
