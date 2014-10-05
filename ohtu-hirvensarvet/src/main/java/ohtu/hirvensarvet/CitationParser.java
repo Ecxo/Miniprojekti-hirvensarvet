@@ -7,9 +7,11 @@ import org.codehaus.jparsec.Parsers;
 import org.codehaus.jparsec.Scanners;
 import org.codehaus.jparsec.Terminals;
 import org.codehaus.jparsec.functors.Map;
+import org.codehaus.jparsec.functors.Map2;
 import org.codehaus.jparsec.functors.Map3;
 import org.codehaus.jparsec.functors.Map5;
 import org.codehaus.jparsec.pattern.CharPredicates;
+import org.codehaus.jparsec.pattern.Patterns;
 
 public class CitationParser {
     
@@ -38,52 +40,74 @@ public class CitationParser {
             });
     }
 
-    static final Parser<Void> skipWhite =
-            Scanners.WHITESPACES.skipMany();
+    private static final Parser<Void> skipWhite =
+            Parsers.or(Scanners.WHITESPACES, Scanners.isChar('\n')).skipMany();
     
-    static final Parser<Void> quotOrBracket =
+    private static final Parser<Void> quotOrBracket =
             Scanners.among("\"{");
     
-    static final Parser<Void> quotEndOrBracket =
+    private static final Parser<Void> quotEndOrBracket =
             Scanners.among("\"}");
     
-    static final Parser<String> fieldName =
-            Scanners.isChar(CharPredicates.IS_ALPHA).many1().source();
+    private static final Parser<String> fieldName =
+            parseWhiteSpaceSurrounded(
+            Scanners.isChar(CharPredicates.IS_ALPHA).many1().source().map(
+            new Map<String, String>() {
+                @Override
+                public String map(String s) {
+                    return s.toLowerCase();
+                }
+            }));
     
-    static final Parser<String> anyString =
-            parseWhiteSpaceSurrounded(Scanners
-            .isChar(CharPredicates.ALWAYS)
-            .many().source());
     
-    static final Parser<String> fieldValue =
-            parseWhiteSpaceSurrounded(Scanners
-            .quoted(quotOrBracket, quotEndOrBracket, anyString));
+    //ks. nestableBlockComment
+    private static final Parser<String> anyString = 
+            Parsers.or(Scanners.isChar(CharPredicates.notAmong("\"}")),
+            Parsers.sequence(Scanners.isChar('\\'), Scanners.ANY_CHAR)).many().source();
+    
+    private static final Parser<String> fieldValue =
+            parseWhiteSpaceSurrounded(Parsers.or(Parsers
+            .between(quotOrBracket, anyString, quotEndOrBracket),
+            Scanners.INTEGER.source()));
+    
+    private static final Parser<Void> optionalTrailingComma =
+            Scanners.isChar(',').optional();
    
-    static final Parser<BibliographyField> field =
-            Parsers.sequence(fieldName, Scanners.isChar('='), fieldValue,
+    private static final Parser<BibliographyField> field =
+            Parsers.sequence(fieldName,
+            Scanners.isChar('='), fieldValue,
             new Map3<String, Void, String, BibliographyField>() {
                 @Override
                 public BibliographyField map(String name, Void v, String value) {
                     return new BibliographyField(name, value);
                 }
+            }).followedBy(skipWhite);
+    
+    private static final Parser<List<BibliographyField>> fields =
+            Parsers.sequence(field.atomic().sepEndBy(Scanners.isChar(','))
+            .followedBy(skipWhite), Scanners.among("})"),
+            new Map2<List<BibliographyField>, Void, List<BibliographyField>>() {
+                @Override
+                public List<BibliographyField> 
+                        map(List<BibliographyField> ls, Void v) {
+                    return ls;
+                }
             });
     
-    static final Parser<List<BibliographyField>> fields =
-            field.sepBy(Scanners.isChar(','));
-    
-    static final Parser<String> citationType =
+    private static final Parser<String> citationType =
             Parsers.sequence(skipWhite, Scanners.isChar('@'), fieldName);
     
-    static final Parser<Void> endOfEntry =
-            Parsers.sequence(skipWhite, Scanners.isChar('}'), skipWhite);
+    private static final Parser<Void> endOfEntry = skipWhite;
+            //Parsers.sequence(skipWhite, Scanners.isChar('}'), skipWhite);
     
-    static final Parser<String> articleId =
+    private static final Parser<String> citationId =
             parseWhiteSpaceSurrounded(Scanners
             .isChar(CharPredicates.not(CharPredicates.IS_WHITESPACE))
             .many1().source());
     
-    static final Parser<Article> wholeArticle =
-            Parsers.sequence(citationType, Scanners.isChar('{'), articleId,
+    private static final Parser<Article> wholeArticle =
+            Parsers.sequence(citationType, Scanners.among("{("),
+            citationId,
             fields, endOfEntry, 
             new Map5<String, Void, String, List<BibliographyField>, Void, Article>() {
                 
@@ -100,10 +124,20 @@ public class CitationParser {
                 }
             });
     
-    static final Parser<List<Article>> manyArticles =
-            parseWhiteSpaceSurroundedArticle(wholeArticle).many();
+    private static final Parser<List<Article>> manyArticles =
+            wholeArticle.many().followedBy(Parsers.EOF);
     
     public static List<Article> parseBibtexFile(String bibtexFile) {
         return manyArticles.parse(bibtexFile);
     }
+
+    /*
+    private static Parser<String> parseValue(Parser<String> quotedCell) {
+
+        Parser.Reference<String> ref = Parser.newReference();
+        Parser<String> textinside = ref
+                .lazy().between(quotOrBracket, quotOrEndBracket).or(quotedCell);
+        Parser<String> parseCell = new ;
+    }
+    */
 }
