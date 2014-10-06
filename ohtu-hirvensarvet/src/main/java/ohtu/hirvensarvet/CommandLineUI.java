@@ -93,7 +93,7 @@ public class CommandLineUI implements UI {
         try {
             citation_type = getInt(">");
             
-            if(citation_type != 0 && citation_type != 1) {
+            if(citation_type < 0 || citation_type >= ArticleValidator.citation_types.length) {
                 throw new Exception();
             }
         } catch(Exception e) {

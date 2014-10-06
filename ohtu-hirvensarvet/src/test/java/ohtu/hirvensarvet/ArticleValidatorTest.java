@@ -17,7 +17,7 @@ public class ArticleValidatorTest {
     @Before
     public void setUp() {
     }
-   
+/*   
     @Test
     public void validateArticle_Valid() {
         testArticle = new Article("anyid");
@@ -29,6 +29,7 @@ public class ArticleValidatorTest {
         testArticle.addField("year", "any year");
 		assertEquals(0, ArticleValidator.validateArticle(testArticle));
 	}
+*/
 /*
     @Test
     public void validateArticle_MissingMandatoryField() {
@@ -41,7 +42,7 @@ public class ArticleValidatorTest {
         //testArticle.addField("year", "any year");
 		assertEquals(2, ArticleValidator.validateArticle(testArticle));
 	}*/
-
+/*
 	@Test
 	public void validateArticle_InvalidCitationType(){
         testArticle = new Article("anyid");
@@ -65,7 +66,7 @@ public class ArticleValidatorTest {
         testArticle.addField("year", "any year");
 		assertEquals(3, ArticleValidator.validateArticle(testArticle));	
 	}
-
+*/
 	@Test
 	public void validateFieldNameValid(){
 		BibliographyField field_1 = new BibliographyField("author", "anybody");

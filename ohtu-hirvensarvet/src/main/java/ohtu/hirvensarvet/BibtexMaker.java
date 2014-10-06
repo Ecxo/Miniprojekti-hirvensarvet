@@ -54,6 +54,8 @@ public class BibtexMaker {
                     ui.saveEntries(catArticles(articles));
                     break;
 
+				case "remove":
+					break;
                 default:
                     break;
             }

@@ -14,14 +14,16 @@ public class ArticleValidator{
 	//TODO: jonkunlainen tapa lukea nämä tiedot conffitiedostosta?
 	public static String[] citation_types = {
 		"article",
-		"book"
+		"book",
+		"inproceedings"
 	};
 	//XXX:mandatory fileds are in same order as citation_type
 	// mandatory fileds for <type> are:
 	// mandatory_fields[citation_types.indexOf(<type>)];
 	public static String[][] mandatory_fields = {
-		{"author", "title", "journal", "year"},
-		{"author", "editor", "title", "publisher", "year"} //only one of "author" and "editor" are required, needs fixing
+		{"author", "title", "journal", "year"},				//article
+		{"author", "editor", "title", "publisher", "year"}, //book
+		{"author", "title", "booktitle", "year"}			//inproceedings
 	};
 
 	public static String[] valid_fields = {
@@ -90,24 +92,19 @@ public class ArticleValidator{
 		return false;
 	}
 	
-	/** Validates that the article contains all the mandatory fields
+	
+	/* Validates that the article contains all the mandatory fields
 	* and that all optional field names are valid, does not validate 
 	* field contents.
 	* @param A The article to be validated
 	* @return An error type or message, 0:valid, 1:citation type missing, 2:mandatory field(s) missing, 3:has an invalid field
 	*/
+	/*
 	public static int validateArticle(Article A){
 		//does the Article contain a citation type?
 		if(!isValidCitationType(A.getCitationType())){
 			return 1;
 		}
-		
-		//does the article contain all Mandatory fields for its type
-		/*int i;
-		String[] mandatory = mandatory_fields[0];//hardcoded 0 (article) for testing purposes
-		for(i=0; i<mandatory.length; i++){
-			if(A.getFieldByName(mandatory[i]) == null) return 2;
-		}*/
 		
 		//does the Article contain any invalid bibtex fields?
 		for(BibliographyField B : A.getFields()){
@@ -121,7 +118,7 @@ public class ArticleValidator{
 		}
 		return 0;
 	}
-        
+*/  
         public static boolean 
                 fieldValueContainsValidChars(BibliographyField bf) {
             
