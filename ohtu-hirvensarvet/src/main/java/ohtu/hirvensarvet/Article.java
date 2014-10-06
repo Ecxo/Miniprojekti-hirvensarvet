@@ -34,6 +34,14 @@ public class Article{
 		this.article_id = article_id;
 	}
 
+	@Override
+	public boolean equals(Object obj){
+		if (obj == this) {return true;}
+        if (obj == null || obj.getClass() != this.getClass()) {return false;}
+		Article a = (Article) obj;
+		return this.article_id.equals(a.article_id);
+	}
+
 	String getName(){
 		return this.article_id;
 	}

@@ -55,6 +55,11 @@ public class BibtexMaker {
                     break;
 
 				case "remove":
+                    if (command.length != 2) {
+                        printer.println("Please enter article id (remove somearticle)");
+                        break;
+                    }
+					articles.remove(new Article(command[1]));
 					break;
                 default:
                     break;
