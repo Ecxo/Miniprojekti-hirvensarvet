@@ -139,4 +139,17 @@ public class CommandLineUITest {
         assertTrue(printer.historyContainsLine("chapter"));
 
     }
+
+	@Test
+	public void	userCanRemoveReference() {
+		cmd.setNextLine("done");
+		cmd.setNextLine("remove test");
+		cmd.setNextLine("list");
+		cmd.setNextLine("quit");
+		
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+		//list should not print the reference name, because it was removed.
+        assertTrue(!printer.historyContainsLine("test"));
+	}
 }
