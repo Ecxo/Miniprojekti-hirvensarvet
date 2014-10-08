@@ -47,8 +47,8 @@ public class CommandLineUI implements UI {
             return;
         }
         
-        File file = new File("target" + File.separator + filename);
-        
+        //File file = new File("target" + File.separator + filename); // Something strange here / laleppan
+        File file = new File(filename);
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(formattedEntries);
