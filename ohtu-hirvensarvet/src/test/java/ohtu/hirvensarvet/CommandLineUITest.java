@@ -172,11 +172,13 @@ public class CommandLineUITest {
     public void userCanRemoveArticleFromMemory() {
         cmd.setNextLine("done");
         cmd.setNextLine("remove test");
+        cmd.setNextLine("edit");
         cmd.setNextLine("edit test");
-        cmd.setNextLine("quit");
+        cmd.setNextLine("QUIT");
 
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
         assertTrue(printer.historyContainsLine("No article found"));
     }
+
 }
