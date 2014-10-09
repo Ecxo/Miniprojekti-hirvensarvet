@@ -170,13 +170,19 @@ public class CommandLineUI implements UI {
             printer.println("Please select a field to edit or done to quit editing: ");
             printer.println(toEdit.toString());
             String[] input = getCommand(">");
-            if (input[0].toLowerCase().equals("done")) {
+            if (input[0].equalsIgnoreCase("done")) {
                 break;
             }
+       
             BibliographyField edited = toEdit.getFieldByName(input[0]);
-            printer.println("Enter new value for " + edited.name + " :");
-            String[] newValue = getCommand(">");
-            edited.value = newValue[0];
+            if (edited != null) {
+                printer.println("Enter new value for " + edited.name + " :");
+                String[] newValues = getCommand(">");
+                edited.value = "";
+                for (String value : newValues) {
+                    edited.value += value + " ";
+                }
+            }
         }
         return toEdit;
 
