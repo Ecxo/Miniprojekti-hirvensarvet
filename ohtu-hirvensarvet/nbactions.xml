@@ -28,4 +28,11 @@
                 <goal>site</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-IT</actionName>
+            <displayName>IT</displayName>
+            <goals>
+                <goal>integration-test</goal>
+            </goals>
+        </action>
     </actions>
