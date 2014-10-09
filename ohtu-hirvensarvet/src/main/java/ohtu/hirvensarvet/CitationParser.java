@@ -59,10 +59,13 @@ public class CitationParser {
                 }
             }));
     
+    private static final Parser<String> anyStringHelper =
+            Parsers.or(Scanners.isChar(CharPredicates.notAmong("\"}")),
+            Scanners.pattern(Patterns.regex("[\"}][ \t]*,?[ \t]*\n").peek(), "check if value ends").ifelse(Parsers.never(), Scanners.ANY_CHAR)).source();
     
     //ks. nestableBlockComment
     private static final Parser<String> anyString = 
-            Parsers.or(Scanners.isChar(CharPredicates.notAmong("\"}")),
+            Parsers.or(anyStringHelper,
             Parsers.sequence(Scanners.isChar('\\'), Scanners.ANY_CHAR)).many().source();
     
     private static final Parser<String> fieldValue =

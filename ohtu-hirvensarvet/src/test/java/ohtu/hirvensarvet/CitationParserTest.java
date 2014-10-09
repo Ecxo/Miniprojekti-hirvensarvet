@@ -36,7 +36,7 @@ public class CitationParserTest {
     @Test
     public void testCorrectNumber() {
         
-        assertEquals(CitationParser.parseBibtexFile(testString1).size(), 14);
+        assertEquals(CitationParser.parseBibtexFile(testString1).size(), 17);
     }
     
     @Test
@@ -45,5 +45,26 @@ public class CitationParserTest {
         assertEquals(CitationParser.parseBibtexFile(testString1).get(5)
                 .getFieldByName("title").value,
                 "Infusing active learning into introductory programming courses");
+    }
+    
+    @Test
+    public void testRandomCorrect2() {
+        assertEquals(CitationParser.parseBibtexFile(testString1).get(16)
+                .getFieldByName("author").value, 
+                "Hassinen, Marko and M\\\"{a}yr\\\"{a}, Hannu");
+    }
+    
+    @Test
+    public void testRandomCorrect3() {
+        assertEquals(CitationParser.parseBibtexFile(testString1).get(6)
+                .getFieldByName("year").value,
+                "1978");
+    }
+        
+    @Test
+    public void testRandomCorrect4() {
+        assertEquals(CitationParser.parseBibtexFile(testString1).get(7)
+                .getFieldByName("title").value,
+                "{A}{A}{A} and {C}{S} 1: the applied apprenticeship approach to {C}{S} 1");
     }
 }
