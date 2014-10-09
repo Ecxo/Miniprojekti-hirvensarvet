@@ -140,16 +140,43 @@ public class CommandLineUITest {
 
     }
 
-	@Test
-	public void	userCanRemoveReference() {
-		cmd.setNextLine("done");
-		cmd.setNextLine("remove test");
-		cmd.setNextLine("list");
-		cmd.setNextLine("quit");
-		
+    @Test
+    public void userCanRemoveReference() {
+        cmd.setNextLine("done");
+        cmd.setNextLine("remove test");
+        cmd.setNextLine("list");
+        cmd.setNextLine("quit");
+
         BibtexMaker testUi = new BibtexMaker(ui, printer);
         testUi.run();
-		//list should not print the reference name, because it was removed.
+        //list should not print the reference name, because it was removed.
         assertTrue(!printer.historyContainsLine("test"));
-	}
+    }
+
+    @Test
+    public void userCanEditArticle() {
+        cmd.setNextLine("done");
+        cmd.setNextLine("edit test");
+        cmd.setNextLine("author");
+        cmd.setNextLine("heikki");
+        cmd.setNextLine("done");
+        cmd.setNextLine("list");
+        cmd.setNextLine("quit");
+
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("author  = \"heikki \""));
+    }
+
+    @Test
+    public void userCanRemoveArticleFromMemory() {
+        cmd.setNextLine("done");
+        cmd.setNextLine("remove test");
+        cmd.setNextLine("edit test");
+        cmd.setNextLine("quit");
+
+        BibtexMaker testUi = new BibtexMaker(ui, printer);
+        testUi.run();
+        assertTrue(printer.historyContainsLine("No article found"));
+    }
 }

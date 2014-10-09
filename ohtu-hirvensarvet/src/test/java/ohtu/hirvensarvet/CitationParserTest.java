@@ -6,15 +6,8 @@ package ohtu.hirvensarvet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Scanner;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
