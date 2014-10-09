@@ -70,6 +70,19 @@ public class BibtexMaker {
                     }
                     articles.remove(new Article(command[1]));
                     break;
+                    
+                case "edit":
+                    if (command.length != 2) {
+                        printer.println("Please enter article id (edit somearticle)");
+                        break;
+                    }
+                    Article toEdit = getArticle(command[1]);
+                    if(toEdit == null){
+                        printer.println("No article found");
+                        break;
+                    }
+                    ui.editArticle(toEdit);
+                    break;
                 default:
                     break;
             }
@@ -96,6 +109,16 @@ public class BibtexMaker {
 
     public ArrayList<Article> getArticles() {
         return articles;
+    }
+   
+    public Article getArticle(String id) {
+
+        for (Article article : articles) {
+            if (article.getName().equalsIgnoreCase(id)) {
+                return article;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {

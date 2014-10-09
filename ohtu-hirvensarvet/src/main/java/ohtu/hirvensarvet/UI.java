@@ -16,4 +16,5 @@ public interface UI {
     int getInt(String prompt);
     Article addArticle(String key);
     void saveEntries(String formattedEntries);
+    Article editArticle(Article toEdit);
 }

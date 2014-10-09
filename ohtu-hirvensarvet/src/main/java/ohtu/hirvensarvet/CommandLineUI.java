@@ -164,6 +164,24 @@ public class CommandLineUI implements UI {
         return article;
     }
     
+    public Article editArticle(Article toEdit) {
+        while (true) {
+
+            printer.println("Please select a field to edit or done to quit editing: ");
+            printer.println(toEdit.toString());
+            String[] input = getCommand(">");
+            if (input[0].toLowerCase().equals("done")) {
+                break;
+            }
+            BibliographyField edited = toEdit.getFieldByName(input[0]);
+            printer.println("Enter new value for " + edited.name + " :");
+            String[] newValue = getCommand(">");
+            edited.value = newValue[0];
+        }
+        return toEdit;
+
+    }
+
     /**
      * Display available commands.
      */
@@ -173,6 +191,7 @@ public class CommandLineUI implements UI {
         printer.println("add");
         printer.println("remove");
         printer.println("list");
+        printer.println("edit");
         printer.println("save");
         printer.println("quit");
         printer.println("help");
