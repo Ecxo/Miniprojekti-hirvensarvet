@@ -10,3 +10,6 @@ http://ohtu.jamo.io/view/miniprojektit/job/Miniprojekti-Hirvensarvet/
 
 Trello:
 https://trello.com/b/zfo1mZP1/hirvensarvet
+
+Raportti:
+https://github.com/Ecxo/Miniprojekti-hirvensarvet/wiki/Raportti
